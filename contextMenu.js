@@ -61,7 +61,6 @@
         afterOpen: function (data, event) {},
         onClose: function (data, event) {}
     };
-
     var methods = {
         menu: function (selector, option) {
             var trigger = $(this);
@@ -297,6 +296,9 @@
         },
         eventHandler: function (e) {
             e.preventDefault();
+            if(arguments.length > 1){
+                e = arguments[1];
+            }
             var trigger = $(this),
                 trgrData = trigger.data('iw-menuData'),
                 menu = trgrData.menu,
@@ -614,7 +616,8 @@
             $(document).unbind('keydown', iMethods.keyEvent);
             $('html').unbind('click', iMethods.clickEvent);
             $(window).unbind('scroll resize', iMethods.scrollEvent);
-            $('.iw-contextMenu').hide();
+            trigger.unbind('click.contextMenu');
+            $('.iw-contextMenu').remove();
             $(document).focus();
 
             //call close function
